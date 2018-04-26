@@ -1,0 +1,11 @@
+routingPanier:
+    resource: "@PPECommerceBundle/Resources/config/routing/routingPanier.yml"
+    prefix: /panier
+
+routingProducts:
+    resource: "@PPECommerceBundle/Resources/config/routing/routingProducts.yml"
+    prefix: /
+
+routingAdmin:
+    resource: "@PPECommerceBundle/Resources/config/routing/routingAdmin.yml"
+    prefix: /

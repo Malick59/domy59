@@ -1,0 +1,22 @@
+<div class="well">
+    <ul class="nav nav-list">
+        {% if is_granted('ROLE_ADMIN') %}
+            <li><a href="{{ path('ppe_commerce_admin') }}">Ajouter un produit</a></li>
+        {% endif %}
+        <li>
+            <a href="{{ path('fos_user_profile_show') }}">Mes informations</a>
+        </li>
+        <li>
+            <a href="{{ path('fos_user_profile_edit') }}">Modifier mes informations</a>
+        </li>
+        <li>
+            <a href="{{ path('fos_user_change_password') }}">Modifier mon mot de passe</a>
+        </li>
+        <li>
+            <a href="adresses.php">Mes adresses</a>
+        </li>
+        <li>
+            <a href="{{ path('fos_user_security_logout') }}">Deconnexion</a>
+        </li>
+    </ul>
+</div>

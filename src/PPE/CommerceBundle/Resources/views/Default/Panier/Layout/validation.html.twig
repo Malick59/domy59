@@ -1,0 +1,75 @@
+{% extends "::Layout/layout.html.twig" %}
+{% block body %}
+    <div class="container">
+        <div class="row">
+            <div class="span3">
+                {%  include '::ModulesUsed/navigation.html.twig' %}
+            </div>
+            <div class="span9">
+                <h2>Valider mon parnier</h2>
+                <table class="table table-striped table-hover">
+                    <thead>
+                    <tr>
+                        <th>Nom</th>
+                        <th>Références</th>
+                        <th>Quantité</th>
+                        <th>Prix unitaire</th>
+                        <th>Total par Produit</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for product in commande.contenuCommande.product %}
+                        <tr>
+                            <td>{{ product.name }}</td>
+                            <td>{{ product.reference }}</td>
+                            <td>{{ product.quantite }}</td>
+                            <td>{{ product.prix }}€</td>
+                            <td>{{ product.prixHT }}€</td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+                {% if commande.contenuCommande|length != 0 %}
+                    <dl class="dl-horizontal pull-right">
+                        <dt>Total hors frais:</dt>
+                        <dd>{{ commande.contenuCommande.prixHT }}€</dd>
+                        <dt> Frais de livraison:</dt>
+                        <dd>5€</dd>
+                        <dt>Total TTC:</dt>
+                        <dd>{{commande.contenuCommande.prixTTC }}€</dd>
+                    </dl>
+                {% endif %}
+                <div class="span3 pull-left">
+                    <dl class="pull-left">
+                        <dt><h4>Adresse de livraison</h4></dt>
+                        <dt>{{ commande.contenuCommande.livraison.firstName }} {{ commande.contenuCommande.livraison.lastName}}</dt>
+                        <dt>{{ commande.contenuCommande.livraison.streetNumber }} {{ commande.contenuCommande.livraison.streetName }}</dt>
+                        <dt>{{ commande.contenuCommande.livraison.postalCode }} {{ commande.contenuCommande.livraison.city }} - {{ commande.contenuCommande.livraison.country }}</dt>
+                    </dl>
+                </div>
+
+                <div class="span3 pull-left">
+                    <dl class="pull-left">
+                        <dt><h4>Adresse de facturation</h4></dt>
+                        <dt>{{ commande.contenuCommande.facturation.firstName }} {{ commande.contenuCommande.facturation.lastName}}</dt>
+                        <dt>{{ commande.contenuCommande.facturation.streetNumber }} {{ commande.contenuCommande.facturation.streetName }}</dt>
+                        <dt>{{ commande.contenuCommande.facturation.postalCode }} {{ commande.contenuCommande.facturation.city }} - {{ commande.contenuCommande.facturation.country }}</dt>
+                    </dl>
+                </div>
+
+                <div class="clearfix"></div>
+                <form action="{{ path('ppe_commerce_validationCommande', { 'id' : commande.id }) }}" method="POST">
+                    <input name="token" type="hidden" value="{{ commande.contenuCommande.token }}" />
+                    <input name="prix" type="hidden" value="{{ commande.contenuCommande.prixTTC }}" />
+                    <input name="date" type="hidden" value="{{ commande.date|date('dmyhms') }}" />
+                    <p>Du fait que nous n'acceptons que les chèques, Nous vous prions de bien vouloir envoyer votre chèque à l'adresse de notre entrepôt: <br/>9 avenue Linné à Roubaix(59100).<br/>Votre commande serra expédié à la réception de votre chèque.</p>
+                    <button type="submit" class="btn btn-success pull-right">Payer</button>
+                </form>
+
+                <a href="{{ path('ppe_commerce_livraison') }}" class="btn btn-primary">retour</a>
+            </div>
+            <div class="span9">
+            </div>
+        </div>
+    </div>
+{% endblock %}

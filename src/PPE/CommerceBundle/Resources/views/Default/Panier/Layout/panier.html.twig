@@ -1,0 +1,85 @@
+
+{% extends '::Layout/layout.html.twig'  %}
+
+{% set total = 0 %}
+
+{% block body %}
+    <div class="container">
+        <div class="row">
+
+            <div class="span3">
+                {{ render(controller('PPECommerceBundle:Panier:miniPanier')) }}
+                {% include '::ModulesUsed/navigation.html.twig' %}
+                {% if is_granted('IS_AUTHENTICATED_FULLY') %}
+                    {% include 'PPEUserBundle:Default:ModulesUsed/utilisateur-co.html.twig' %}
+                {% else %}
+                    {% include 'PPEUserBundle:Default:ModulesUsed/utilisateur.html.twig' %}
+                {% endif %}
+            </div>
+
+
+            <div class="span9">
+
+                {% for message in app.session.flashbag.get('success') %}
+                    <div class="alert alert-success">
+                        {{ message }}
+                    </div>
+                    {% endfor %}
+                <h2>Votre parnier</h2>
+                <table class="table table-striped table-hover">
+                    <thead>
+                    <tr>
+                        <th>Nom</th>
+                        <th>Références</th>
+                        <th>Quantité</th>
+                        <th>Prix unitaire</th>
+                        <th>Total par Produit</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% if products|length ==0 %}
+                        <tr>
+                            <td colspan="4">Aucun articles dans votre panier</td>
+                        </tr>
+                    {% endif %}
+
+                    {% for product in products %}
+                        <tr>
+                            <form action="{{ path('ppe_commerce_ajout_panier', {'id': product.id}) }}" method="get">
+                                <td>{{ product.name }}</td>
+                                <td>{{ product.ref }}</td>
+                                <td>
+                                    <select name="qte" class="span1" onchange="this.form.submit()">
+                                        {% for i in 1..10 %}
+                                            <option value="{{ i }}" {% if i == panier[product.id] %} selected="selected" {% endif %}>{{ i }}</option>
+                                        {% endfor %}
+                                    </select>&nbsp;
+                                    <a href="{{ path('ppe_commerce_supprimer_panier', {'id' : product.id } ) }}"><img src="{{ asset('img/icon-trash.png')}}"></a>
+
+                                </td>
+                                <td>{{ product.prix }}€</td>
+                                <td>{{ product.prix * panier[product.id] }}€</td>
+                            </form>
+                        </tr>
+
+                        {% set total = total + (product.prix * panier[product.id]) %}
+
+                    {% endfor %}
+                    </tbody>
+                </table>
+                {% if products|length != 0 %}
+                    <dl class="dl-horizontal pull-right">
+                        <dt>Total:</dt>
+                        <dd>{{ total }}€</dd>
+                    </dl>
+                {% endif %}
+                <div class="clearfix"></div>
+                {% if products|length != 0 %}
+                    <a href="{{ path('ppe_commerce_livraison') }}" class="btn btn-success pull-right">Valider mon panier</a>
+                {% endif %}
+                <a href="{{ path('ppe_commerce_products') }}" class="btn btn-primary">Continuer mes achats</a>
+            </div>
+
+        </div>
+    </div>
+{% endblock %}

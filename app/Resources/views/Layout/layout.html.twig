@@ -1,0 +1,76 @@
+<html>
+<head>
+    <title>{% block title %}Domy Ecommerce{% endblock %}</title>
+    <meta charset="utf-8"/>
+    <meta name="description" content="{% block description %}{% endblock %}"/>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+    <!-- Optional theme -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+    <link rel="stylesheet" href="{{ asset('css/bootstrap.css') }}" type="text/css">
+    <link rel="stylesheet" href="{{ asset('css/bootstrap-responsive.css') }}" type="text/css">
+    <link rel="stylesheet" href="{{ asset('css/style.css') }}" type="text/css">
+    <link rel="stylesheet" href="{{ asset('css/font-awesome.css') }}" type="text/css">
+    <!-- Latest compiled and minified JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+    {% block stylesheet %} {% endblock %}
+    <link rel="icon" type="image/x-icon" href="{{ asset('img/favicon.ico') }}">
+</head>
+<body>
+
+<div class="navbar navbar-inverse navbar-fixed-top">
+    <div class="navbar-inner">
+        <div class="container">
+            <button class="btn btn-navbar" data-target=".nav-collapse" data-toggle="collapse" type="button">
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="brand" href="{{ path('ppe_commerce_products') }}"> Domy Ecommerce </a>
+            <div class="form-search">
+            {{ render(controller('PPECommerceBundle:Products:search')) }}
+
+            </div>
+            </div>
+        </div>
+    </div>
+{% block body %} {% endblock %}
+
+<hr />
+
+<footer id="footer" class="vspace20">
+    <div class="container">
+        <div class="row">
+            <div class="span4 offset1">
+                <h4>Informations</h4>
+                <ul class="nav nav-stacked">
+                    {{ render(controller('PPEPagesBundle:Pages:menu')) }}
+                </ul>
+            </div>
+
+            <div class="span4">
+                <h4>Notre entrepôt</h4>
+                <p><i class="icon-map-marker"></i>&nbsp;{{ entrepot }}</p>
+            </div>
+
+            <div class="span2">
+                <h4>Nous contacter</h4>
+                <p><i class="icon-phone"></i>&nbsp;Tel: {{ telephone }}</p>
+                <p><i class="icon-print"></i>&nbsp;Fax: {{ fax }}</p>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="span4">
+                <p>&copy; Copyright {{ "now"|date('Y') }} - Domy59</p>
+            </div>
+            <p>Ceci est un site de démonstration aucune transaction ne peut être éffectuée</p>
+        </div>
+    </div>
+</footer>
+
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.bundle.min.js" integrity="sha384-feJI7QwhOS+hwpX2zkaeJQjeiwlhOP+SdQDqhgvvo1DsjtiSQByFdThsxO669S2D" crossorigin="anonymous"></script>
+{% block javascript %} {% endblock %}
+</body>
+</html>

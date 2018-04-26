@@ -1,0 +1,27 @@
+ppe_commerce_panier:
+    path:     /
+    defaults: { _controller: PPECommerceBundle:Panier:panier }
+
+ppe_commerce_livraison:
+    path:     /livraison
+    defaults: { _controller: PPECommerceBundle:Panier:livraison }
+
+ppe_commerce_validation:
+    path:     /validation
+    defaults: { _controller: PPECommerceBundle:Panier:validation }
+
+ppe_commerce_ajout_panier:
+    path:     /ajouter/{id}
+    defaults: { _controller: PPECommerceBundle:Panier:ajout}
+
+ppe_commerce_supprimer_panier:
+    path:     /supprimer/{id}
+    defaults: { _controller: PPECommerceBundle:Panier:supprimer}
+
+ppe_commerce_supprimerAddress:
+    path:     /livraison/address/supprimer/{id}
+    defaults: { _controller: PPECommerceBundle:Panier:supprimerAddress}
+
+ppe_commerce_validationCommande:
+    path:  /api/banque/{id}
+    defaults: { _controller: PPECommerceBundle:Panier:validationCommande }

@@ -1,0 +1,3 @@
+ppe_commerce_admin:
+    path:     /admin
+    defaults: { _controller: PPECommerceBundle:Admin:admin }

@@ -1,0 +1,51 @@
+{% extends "::Layout/layout.html.twig" %}
+
+{% block body %}
+    <div class="container ">
+        <div class="row">
+            <div class="span3">
+                {{ render(controller('PPECommerceBundle:Panier:miniPanier')) }}
+                {% include '::ModulesUsed/navigation.html.twig' %}
+                {% if is_granted('IS_AUTHENTICATED_FULLY') %}
+                    {% include 'PPEUserBundle:Default:ModulesUsed/utilisateur-co.html.twig' %}
+                {% else %}
+                    {% include 'PPEUserBundle:Default:ModulesUsed/utilisateur.html.twig' %}
+                {% endif %}
+            </div>
+            <div class="span9">
+
+                {% if products|length != 0 %}
+                    <ul class="thumbnails">
+
+                        {% for product in products %}
+
+                            <li class="span3">
+                                <div class="thumbnail">
+                                    <img src="{{ asset(product.image)}}" alt="{{ product.name }}" width="auto" height=""/>
+                                    <div class="caption">
+                                        <h4>{{ product.name }}</h4>
+                                        <p>{{ product.prix }}€</p>
+                                        <a class="btn btn-primary" href="{{ path('ppe_commerce_presentation', {'id': product.id})  }}">Plus d'infos</a>
+
+                                        {% if panier[product.id] is not defined %}
+                                                <a class="btn btn-success" href="{{ path('ppe_commerce_ajout_panier', {'id': product.id})  }}">Ajouter au panier</a>
+                                            {% else %}
+                                                <a href="{{ path('ppe_commerce_panier') }}" class="btn btn-primary">Voir votre panier</a>
+                                        {% endif %}
+                                    </div>
+                                </div>
+                            </li>
+                        {% endfor %}
+
+                    </ul>
+                    <div class="navigation">
+                        {{ knp_pagination_render(products) }}
+                    </div>
+                {% else %}
+                    Désolé ... <br /> L'élément de recherche n'éxiste pas ou est mal orthographié. <br /> Merci de bien vouloir réessayer.
+
+                {% endif %}
+            </div>
+        </div>
+    </div>
+{% endblock %}

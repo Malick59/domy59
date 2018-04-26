@@ -1,0 +1,54 @@
+{% extends '::Layout/layout.html.twig' %}
+
+{% block title %}{{ product.name }}{% endblock %}
+{% block description %}{{ product.description }}{% endblock %}
+{% block body %}
+    <div class="container">
+        <div class="row">
+
+            <div class="span3">
+                {{ render(controller('PPECommerceBundle:Panier:miniPanier')) }}
+                {% include '::ModulesUsed/navigation.html.twig' %}
+                {% if is_granted('IS_AUTHENTICATED_FULLY') %}
+                    {% include 'PPEUserBundle:Default:ModulesUsed/utilisateur-co.html.twig' %}
+                {% else %}
+                    {% include 'PPEUserBundle:Default:ModulesUsed/utilisateur.html.twig' %}
+                {% endif %}
+            </div>
+            <div class="span9">
+                <div class="row">
+                    <div class="span4">
+                        <img src="{{ asset(product.image) }}" alt="Domy59" width="100%" height="auto">
+                    </div>
+
+                    <div class="span5">
+                        <h4>{{ product.name }}</h4>
+                        <h5>{{ product.ref }}</h5>
+                        <p>{{ product.description }}</p>
+                        <h4>{{ product.prix }}€</h4>
+                        {% if panier[product.id] is not defined %}
+                            <form action="{{ path('ppe_commerce_ajout_panier', {'id': product.id}) }}" method="get">
+                                <select name="qte" class="span1">
+                                    {% for i in 1..10 %}
+                                        <option value="{{ i }}">{{ i }}</option>
+                                    {% endfor %}
+                                </select>
+                                <div>
+                                    <button class="btn btn-success">Ajouter au panier</button>
+                                </div>
+                            </form>
+                        {% else %}
+                            <div>
+                            <p style="color:#006dcc">Produit déjà dans votre panier</p>
+                            <a href="{{ path('ppe_commerce_panier') }}" class="btn btn-primary">Cliquez pour voir votre panier</a>
+                            </div>
+                        {% endif %}
+
+                    </div>
+                </div>
+
+
+            </div>
+        </div>
+    </div>
+{% endblock %}

@@ -1,0 +1,13 @@
+{% extends '::Layout/layout.html.twig'  %}
+
+{% block body %}
+    <div class="container">
+        <div class="row">
+            <h4>Ajouter un nouveau produit</h4>
+            <form action="{{ path('ppe_commerce_admin') }}" method="POST">
+                {{ form_widget(form) }}
+                <button class="btn btn-primary">Ajouter</button>
+            </form>
+        </div>
+    </div>
+{% endblock %}

@@ -1,0 +1,22 @@
+{% extends '::Layout/layout.html.twig' %}
+
+{% block body %}
+<div class="container">
+    <div class="row">
+        <h1 style="text-align: center">{{ page.titre }}</h1>
+        <div class="span3">
+            {{ render(controller('PPECommerceBundle:Panier:miniPanier')) }}
+            {% include '::ModulesUsed/navigation.html.twig' %}
+            {% if is_granted('IS_AUTHENTICATED_FULLY') %}
+                {% include 'PPEUserBundle:Default:ModulesUsed/utilisateur-co.html.twig' %}
+            {% else %}
+                {% include 'PPEUserBundle:Default:ModulesUsed/utilisateur.html.twig' %}
+            {% endif %}
+        </div>
+
+        <div class="span7">
+            {{ page.contenu|raw }}
+        </div>
+    </div>
+</div>
+{% endblock %}

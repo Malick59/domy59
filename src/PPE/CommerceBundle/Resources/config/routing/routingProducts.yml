@@ -1,0 +1,15 @@
+ppe_commerce_presentation:
+    path:     /product/{id}
+    defaults: { _controller: PPECommerceBundle:Products:presentation }
+
+ppe_commerce_products:
+    path:     /
+    defaults: { _controller: PPECommerceBundle:Products:products }
+
+ppe_category_produits:
+    path:     /category/{category}
+    defaults:  { _controller: PPECommerceBundle:Products:category }
+
+ppe_commerce_search:
+    path:     /search
+    defaults: { _controller: PPECommerceBundle:Products:searchTraitement}

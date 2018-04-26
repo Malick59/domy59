@@ -1,0 +1,76 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>Facture</title>
+    <link href="./css/facture.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<h1>Domy59</h1>
+<table id="enTete">
+    <tr>
+        <td colspan="1"></td>
+        <td colspan="1"><h1>Facture</h1></td>
+        <td colspan="1"></td>
+    </tr>
+    <tr>
+        <td width="100">Date</td>
+        <td width="120">Ref</td>
+    </tr>
+    <tr>
+        <td class="color">{{ facture.date|date('d-m-Y') }}</td>
+        <td class="color">{{ facture.reference }}</td>
+    </tr>
+</table>
+<ul id="coordonnes">
+    <li>{{ facture.contenuCommande.facturation.lastName }} {{ facture.contenuCommande.facturation.firstName }}</li>
+    <li>{{ facture.contenuCommande.facturation.streetNumber}} {{ facture.contenuCommande.facturation.streetName}}</li>
+    <li>{{ facture.contenuCommande.facturation.postalCode }} {{ facture.contenuCommande.facturation.city }} - {{ facture.contenuCommande.facturation.country }}</li>
+</ul>
+<table id="entity">
+    <tr>
+        <td width="280">DESIGNATION</td>
+        <td width="105">REFERENCE</td>
+        <td width="105">QUANTITE</td>
+        <td width="100">P.U - HT</td>
+        <td width="105">MONTANT HT</td>
+        <td width="105">MONTANT TTC</td>
+    </tr>
+    {% for produit in facture.contenuCommande.product %}
+        <tr>
+            <td class="color">{{ produit.name }}</td>
+            <td class="color">{{ produit.reference }}</td>
+            <td class="color">{{ produit.quantite }}</td>
+            <td class="color">{{ produit.prix }} €</td>
+            <td class="color">{{ produit.prixHT }} €</td>
+            <td class="color">{{ produit.prixHT +5 }} €</td>
+        </tr>
+    {% endfor %}
+</table>
+<table id="total">
+    <tr>
+        <td width="110">TOTAL HT :</td>
+        <td width="100" class="color">{{ facture.contenuCommande.prixHT }} €</td>
+    </tr>
+    <tr>
+        <td width="110">TOTAL TTC :</td>
+        <td width="100" class="color">{{ facture.contenuCommande.prixTTC }} €</td>
+    </tr>
+    <tr>
+        <td width="110">FRAIS LIVRAISON :</td>
+        <td width="100" class="color">5 €</td>
+    </tr>
+</table>
+<div id="footer">
+    <span class="color strong">{{ entrepot }}</span>
+    <br />
+    <ul><li>
+           Fax: {{ fax }}
+        </li>
+        <li>
+           Telephone: {{ telephone }}
+        </li>
+    </ul>
+</div>
+</body>
+</html>

@@ -1,0 +1,13 @@
+services:
+
+  setNewReference:
+    class: PPE\CommerceBundle\Services\GetReference
+    arguments: ['@service_container', '@doctrine.orm.entity_manager']
+    public: true
+
+  redirectionListener:
+    class: PPE\CommerceBundle\Listener\RedirectionListener
+    arguments: ['@session', '@service_container']
+    public: true
+    tags:
+      - { name: kernel.event_listener, event: kernel.request, method: onKernelRequest }
